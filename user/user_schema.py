@@ -1,5 +1,7 @@
+from app import ma
 from utils.base_schema import BaseSchema
 from marshmallow import fields, validate
+from user.user_model import User
 
 
 class RegisterSchema(BaseSchema):
@@ -31,3 +33,25 @@ class RegisterSchema(BaseSchema):
         ),
         error_messages={"required": "You've not entered your password"},
     )
+
+
+class LoginSchema(BaseSchema):
+    email = fields.Email(
+        required=True,
+        error_messages={
+            "required": "You've not entered your Email Address",
+            "invalid": "Please enter a valid email address",
+        },
+    )
+    password = fields.Str(
+        required=True,
+        validate=validate.Length(
+            min=6, max=50, error="Password should contain 6 to 50 characters"
+        ),
+        error_messages={"required": "You've not entered your password"},
+    )
+
+
+class UserProfileSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = User

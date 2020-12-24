@@ -6,6 +6,7 @@ black==20.8b1
 cffi==1.14.4
 click==7.1.2
 Flask==1.1.2
+Flask-Admin==1.5.7
 Flask-Bcrypt==0.7.1
 Flask-JWT-Extended==3.25.0
 flask-marshmallow==0.14.0
@@ -40,3 +41,4 @@ toml==0.10.2
 typed-ast==1.4.1
 typing-extensions==3.7.4.3
 Werkzeug==1.0.1
+WTForms==2.3.3
