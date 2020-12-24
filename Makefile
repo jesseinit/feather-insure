@@ -5,3 +5,7 @@ prod:
 dev:
 	@echo "Staring Up Dev Server"
 	python manage.py run
+
+test:
+	@echo "Running Tests"
+	source .env && pytest
