@@ -1,0 +1,52 @@
+name: CI
+on: [push]
+
+jobs:
+  build-test:
+    # Job name is Greeting
+    name: Build and Test
+    # This job runs on Linux
+    runs-on: ubuntu-latest
+    # Service containers to run with `container-job`
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        ports: ["5432:5432"]
+        # Provide the password for postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: feather_db_test
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10ms
+          --health-timeout 500ms
+          --health-retries 15
+
+    #Init Envs
+    env:
+      JWT_SECRET_KEY: some-hashed-secrete
+      FLASK_ENV: test
+      FLASK_APP: manage.py
+      TEST_DATABASE_URL: postgresql://postgres:postgres@0.0.0.0/feather_db_test
+
+    steps:
+      #Checkout Code
+      - uses: actions/checkout@v2
+
+      #Setup Python
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+
+      # Run Tests
+      - name: Run Test Cases
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+          pytest -vs
