@@ -1,2 +1,3 @@
-# feather-insure
+# Feather API
+
 A small insurance recommendation API
