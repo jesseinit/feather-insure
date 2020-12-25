@@ -40,10 +40,6 @@ def create_app(config_name):
     flask_bcrypt.init_app(app)
     jwt.init_app(app)
     admin.init_app(app)
-    # if app.testing:
-    #     redis_client = FlaskRedis.from_custom_provider(MockRedis)
-    # else:
-    #     redis_client = FlaskRedis()
     redis_client.init_app(app)
     from admin.admin_blueprint import admin_blueprint
     from questionnaire.questionnaire_blueprint import questionnaire_blueprint
