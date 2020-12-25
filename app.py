@@ -57,4 +57,8 @@ def create_app(config_name):
         response.status_code = error.status_code
         return response
 
+    @app.errorhandler(500)
+    def internal_server_error(error):
+        return {"message": "Internal Server Error", "status": "error"}, 500
+
     return app

@@ -38,7 +38,6 @@ def submit_questionnaire():
 
     all_plans = Plans.query.all()
 
-    # Employed with Children
     if has_children and occupation == "Employed":
         recomendation_data = {
             "highly_recommended": generate_recommendations(
@@ -123,5 +122,25 @@ def submit_questionnaire():
     return {
         "message": "Here is your recommendation",
         "data": final_recommendation,
+        "status": "success",
+    }, 200
+
+
+@questionnaire_blueprint.route("/myrecommendations")
+@jwt_required
+def retrieve_recommendations():
+    my_recommendations = redis_client.get(
+        f"recommendation:{get_jwt_identity().get('id')}",
+    ).decode("utf8")
+
+    if not my_recommendations:
+        return {
+            "message": "You dont have any recommendation at this time",
+            "status": "failed",
+        }, 404
+
+    return {
+        "message": "Here is your recommendation",
+        "data": json.loads(my_recommendations),
         "status": "success",
     }, 200

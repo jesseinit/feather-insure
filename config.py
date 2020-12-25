@@ -8,6 +8,7 @@ class Config:
     SQLALCHEMY_ECHO = True
     SESSION_TYPE = "filesystem"
     SECRET_KEY = "basdasdafasdf9sf759as5dfasdf"
+    REDIS_URL = os.environ.get("REDIS_URL", "redis://localhost:6379/0")
 
 
 class DevelopmentConfig(Config):
@@ -28,6 +29,7 @@ class TestingConfig(Config):
 class ProductionConfig(Config):
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+    REDIS_URL = os.environ.get("REDIS_URL")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = False
 
