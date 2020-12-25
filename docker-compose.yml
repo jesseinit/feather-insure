@@ -1,0 +1,40 @@
+version: "3.3"
+
+services:
+  feather-api:
+    build: .
+    container_name: feather-api
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/feather-api
+    depends_on:
+      - feather-db
+      - feather-redis
+
+  feather-redis:
+    image: redis
+    container_name: feather-redis
+    restart: unless-stopped
+    ports:
+      - "6378:6379"
+    volumes:
+      # Create these volumes on the project root directory
+      - ./feather_redis:/data
+
+  feather-db:
+    restart: always
+    image: postgres:11
+    container_name: feather-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=feather_db
+    volumes:
+      # Create these volumes on the project root directory
+      - ./feather_db:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
