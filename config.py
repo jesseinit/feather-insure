@@ -4,8 +4,10 @@ from datetime import timedelta
 
 class Config:
     JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY")
-    JWT_ACCESS_TOKEN_EXPIRES = timedelta(days=30)
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(days=2)
     SQLALCHEMY_ECHO = True
+    SESSION_TYPE = "filesystem"
+    SECRET_KEY = "basdasdafasdf9sf759as5dfasdf"
 
 
 class DevelopmentConfig(Config):

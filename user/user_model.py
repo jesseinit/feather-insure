@@ -1,8 +1,11 @@
-from app import db, flask_bcrypt as BCrypt
-from utils.model_utils import UtilityMixin
-from sqlalchemy import func, event
-from sqlalchemy.dialects.postgresql import UUID
 from uuid import uuid4
+
+from app import admin, db
+
+from app import flask_bcrypt as BCrypt
+from sqlalchemy import event, func
+from sqlalchemy.dialects.postgresql import UUID
+from utils.model_utils import UtilityMixin, UserView
 
 
 class User(UtilityMixin, db.Model):
@@ -23,7 +26,7 @@ class User(UtilityMixin, db.Model):
 
     def __init__(self, **kwargs):
         for field in list(kwargs.keys()):
-            self.__dict__[field] = kwargs[field]
+            setattr(self, field, kwargs[field])
 
     def __repr__(self):
         return f"<User >>> {self.email}>"
@@ -32,3 +35,6 @@ class User(UtilityMixin, db.Model):
 @event.listens_for(User, "before_insert")
 def hash_user_password(mapper, connection, self):
     self.password = BCrypt.generate_password_hash(self.password).decode("utf-8")
+
+
+admin.add_view(UserView(User, db.session))

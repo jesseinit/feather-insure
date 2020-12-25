@@ -1,5 +1,4 @@
 from functools import wraps
-from json import dumps
 
 
 class ValidationError(Exception):
@@ -7,6 +6,7 @@ class ValidationError(Exception):
 
     def __init__(self, error, status_code=None):
         Exception.__init__(self)
+        print(">>>>", error)
         self.status_code = 400
         self.error = error
         self.error["status"] = "error"
@@ -43,7 +43,7 @@ def validate_schema(request, schema_instance):
     def decorator(func):
         @wraps(func)
         def wrapper_function(*args, **kwargs):
-            json_payload = dumps(request.get_json())
+            json_payload = request.get_json()
             schema_instance.load_json_into_schema(json_payload)
             return func(*args, **kwargs)
 

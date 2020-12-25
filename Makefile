@@ -8,4 +8,4 @@ dev:
 
 test:
 	@echo "Running Tests"
-	source .env && pytest
+	source .env && pytest -vs

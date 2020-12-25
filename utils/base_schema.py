@@ -6,7 +6,7 @@ class BaseSchema(Schema):
         """Helper function to load raw json(deserialized data) request data
         into schema"""
         try:
-            data = self.loads(data)
+            data = self.load(data)
         except exceptions.ValidationError as e:
             from utils.validations import ValidationError
 
