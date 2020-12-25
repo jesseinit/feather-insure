@@ -1,0 +1,171 @@
+{
+	"info": {
+		"_postman_id": "c1a4fc50-4146-4152-be25-e517e9afa7cb",
+		"name": "Feather API",
+		"description": "A tiny little recomendation application to help you choose the best insurance plans best for you.\n\n## Base URL\nhttps://feather-rec-api.herokuapp.com",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"Jesse\",\n    \"last_name\": \"Egbosionu\",\n    \"email\": \"jesse@feather-insurance.com\",\n    \"password\": \"good-password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{heroku-url}}/api/v1/user/register",
+					"host": [
+						"{{heroku-url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"register"
+					]
+				},
+				"description": "This endpoint registers a user on the platform.\n\n## Sample Payload\n```\n{\n    \"first_name\": \"Jesse\",\n    \"last_name\": \"Egbosionu\",\n    \"email\": \"jesse@feather-insurance.com\",\n    \"password\": \"good-password\"\n}\n```"
+			},
+			"response": []
+		},
+		{
+			"name": "Login User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"jesse@feather-insurance.com\",\n    \"password\": \"good-password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{heroku-url}}/api/v1/user/login",
+					"host": [
+						"{{heroku-url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"login"
+					]
+				},
+				"description": "This endpoint to login a user a retrive an access token.\n\n# Sample Payload\n```\n{\n    \"email\": \"jesse@feather-insurance.com\",\n    \"password\": \"good-password\"\n}\n```"
+			},
+			"response": []
+		},
+		{
+			"name": "Process Questionnaire",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MDg5MjIwMTMsIm5iZiI6MTYwODkyMjAxMywianRpIjoiYmMwZjI5NTUtNDIxMC00YWMwLWE0NWMtNTAyZjE3NWY1YzY1IiwiZXhwIjoxNjA5MDk0ODEzLCJpZGVudGl0eSI6eyJpZCI6ImVkYmYwZGE5LWY4M2QtNGE5Yi05M2IzLTk3ZmRmZDFiYjVmZCJ9LCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.k6L4V3Mi8lowTcy0j4SFvU0ckM3mMKutpWeh3Jk8ULw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"Jesse\",\n    \"address\": \"No 8, Heaven Gates Drive, Santorini, Greece\",\n    \"occupation\": \"Employed\",\n    \"has_children\": false,\n    \"email\": \"bigmanjesse@gmail.com\",\n    \"children_count\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{heroku-url}}/api/v1/questionnaire/process",
+					"host": [
+						"{{heroku-url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"questionnaire",
+						"process"
+					]
+				},
+				"description": "This endpoint takes in a payload of a user's questionnaire answers and makes a recommendation.\n\n\n# Sample Payload\n```\n{\n    \"first_name\": \"Jesse\",\n    \"address\": \"No 8, Heaven Gates Drive, Santorini, Greece\",\n    \"occupation\": \"Employed\",\n    \"has_children\": false,\n    \"email\": \"bigmanjesse@gmail.com\",\n    \"children_count\": 2\n}\n```"
+			},
+			"response": []
+		},
+		{
+			"name": "My Recommendation",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MDg5MjIwMTMsIm5iZiI6MTYwODkyMjAxMywianRpIjoiYmMwZjI5NTUtNDIxMC00YWMwLWE0NWMtNTAyZjE3NWY1YzY1IiwiZXhwIjoxNjA5MDk0ODEzLCJpZGVudGl0eSI6eyJpZCI6ImVkYmYwZGE5LWY4M2QtNGE5Yi05M2IzLTk3ZmRmZDFiYjVmZCJ9LCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.k6L4V3Mi8lowTcy0j4SFvU0ckM3mMKutpWeh3Jk8ULw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{heroku-url}}/api/v1/questionnaire/myrecommendations",
+					"host": [
+						"{{heroku-url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"questionnaire",
+						"myrecommendations"
+					]
+				},
+				"description": "This endpoint retrieves your stored recommendation since the last time you submitted a questionnaire."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "4c9c9889-86d0-420b-8ebc-9fb519d2e9a5",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "4569a0ce-f8e8-4bda-a02d-b21da59a123f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "83396c0f-1c6d-4bb4-966b-66e8c0d79e68",
+			"key": "heroku-url",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}
