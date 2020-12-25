@@ -26,6 +26,15 @@ jobs:
           --health-timeout 500ms
           --health-retries 15
 
+      redis:
+        image: redis
+        ports: ["6379:6379"]
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10ms
+          --health-timeout 500ms
+          --health-retries 15
+
     #Init Envs
     env:
       JWT_SECRET_KEY: some-hashed-secrete
