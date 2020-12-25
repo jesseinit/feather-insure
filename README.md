@@ -12,6 +12,12 @@ https://feather-rec-api.herokuapp.com
 
 [Postman Documentation](https://documenter.getpostman.com/view/7875106/TVsxB6ho)
 
+> The exported collection has been added for ease of setup and testing
+
+## Project Management
+
+The project was managed [here](https://github.com/jesseinit/feather-insure/projects/1)
+
 ## Setup
 
 To get the application running on your local environment, run the following commands
@@ -40,6 +46,14 @@ OR
 ```sh
 - $ docker-compose up --build - to start the api
 - $ docker-compose down - to stop the api
+```
+
+## Testing the API
+
+> Ensure you have a test DB and Redis running
+
+```sh
+$ make test
 ```
 
 ## Built With
