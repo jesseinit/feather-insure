@@ -1,4 +1,5 @@
 from app import db
+from flask_admin.contrib.sqla import ModelView
 
 
 class UtilityMixin:
@@ -13,3 +14,13 @@ class UtilityMixin:
         for key, value in kwargs.items():
             setattr(self, key, value)
         return self.save()
+
+
+class UserView(ModelView):
+    column_display_pk = True
+    column_exclude_list = [
+        "password",
+    ]
+
+class PlansView(ModelView):
+    column_display_pk = True

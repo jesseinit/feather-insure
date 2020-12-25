@@ -1,7 +1,10 @@
 import pytest
 from app import create_app, db
 
-pytest_plugins = ["tests.user_entity_tests.user_fixtures"]
+pytest_plugins = [
+    "tests.user_entity_tests.user_fixtures",
+    "tests.questionnaire_entity_tests.questionnaire_fixtures",
+]
 
 
 @pytest.fixture(scope="function")
