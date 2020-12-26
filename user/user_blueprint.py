@@ -15,18 +15,22 @@ user_blueprint = Blueprint("user_blueprint", __name__, url_prefix="/api/v1/user"
 @validate_schema(request, RegisterSchema())
 def register_user():
     """ This route handles all user creation and registration  """
-    user_info = request.get_json()
+    register_schema = RegisterSchema()
+    user_info = register_schema.dump(request.get_json())
+    print(user_info)
     existing_user_instance = UserModel.query.filter_by(email=user_info["email"]).first()
+
     if existing_user_instance:
         return {
             "message": "This email address has been taken",
             "status": "conflict",
         }, 409
+
     new_user_instance = UserModel(**user_info).save()
     return {
         "message": "Your account has been created successfully",
         "status": "success",
-        "data": RegisterSchema(exclude=["password"]).dump(new_user_instance),
+        "data": UserProfileSchema(exclude=["password"]).dump(new_user_instance),
     }, 201
 
 

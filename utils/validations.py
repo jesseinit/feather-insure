@@ -5,8 +5,7 @@ class ValidationError(Exception):
     """Base Validation class for handling validation errors"""
 
     def __init__(self, error, status_code=None):
-        Exception.__init__(self)
-        print(">>>>", error)
+        super().__init__(self)
         self.status_code = 400
         self.error = error
         self.error["status"] = "error"

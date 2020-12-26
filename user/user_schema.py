@@ -1,6 +1,6 @@
 from app import ma
 from utils.base_schema import BaseSchema
-from marshmallow import fields, validate
+from marshmallow import fields, validate, pre_dump
 from user.user_model import User
 
 
@@ -34,6 +34,13 @@ class RegisterSchema(BaseSchema):
         error_messages={"required": "You've not entered your password"},
     )
 
+    @pre_dump
+    def preprocess(self, data, **kwargs):
+        data["email"] = data["email"].lower()
+        data["first_name"] = data["first_name"].title()
+        data["last_name"] = data["last_name"].title()
+        return data
+
 
 class LoginSchema(BaseSchema):
     email = fields.Email(
@@ -50,6 +57,11 @@ class LoginSchema(BaseSchema):
         ),
         error_messages={"required": "You've not entered your password"},
     )
+
+    @pre_dump
+    def preprocess(self, data, **kwargs):
+        data["email"] = data["email"].lower()
+        return data
 
 
 class UserProfileSchema(ma.SQLAlchemyAutoSchema):
