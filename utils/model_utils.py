@@ -22,5 +22,8 @@ class UserView(ModelView):
         "password",
     ]
 
+
 class PlansView(ModelView):
     column_display_pk = True
+    can_delete = False
+    can_edit = False
