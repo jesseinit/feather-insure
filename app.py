@@ -30,8 +30,15 @@ redis_client = FlaskRedis()
 admin = Admin()
 
 
-def create_app(config_name):
-    """ Creates an application factory """
+def create_app(config_name: str):
+    """Application factory
+
+    Args:
+        config_name (str): the application config name to determine which env to run on
+    Returns:
+        The Flask application object
+    """
+
     app = Flask(__name__)
     app.config.from_object(config[config_name])
     db.init_app(app)

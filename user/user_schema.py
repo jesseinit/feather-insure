@@ -64,6 +64,6 @@ class LoginSchema(BaseSchema):
         return data
 
 
-class UserProfileSchema(ma.SQLAlchemyAutoSchema):
+class UserProfileSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         model = User

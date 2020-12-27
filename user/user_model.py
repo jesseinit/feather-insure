@@ -8,7 +8,7 @@ from sqlalchemy.dialects.postgresql import UUID
 from utils.model_utils import UtilityMixin, UserView
 
 
-class User(UtilityMixin, db.Model):
+class User(UtilityMixin, db.Model):  # type: ignore
     """ User model for storing user related information """
 
     id = db.Column(

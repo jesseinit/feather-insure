@@ -48,12 +48,16 @@ OR
 - $ docker-compose down - to stop the api
 ```
 
+The API runs on would run on `http://localhost:5000`
+
 ## Testing the API
 
 > Ensure you have a test DB and Redis running
 
 ```sh
 $ make test
+or
+$ pytest
 ```
 
 ## Built With

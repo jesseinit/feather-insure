@@ -23,11 +23,11 @@ MarkupSafe==1.1.1
 marshmallow==3.10.0
 marshmallow-sqlalchemy==0.24.1
 mockredispy==2.9.3
+mypy==0.790
 mypy-extensions==0.4.3
 packaging==20.8
 pathspec==0.8.1
 pluggy==0.13.1
-# psycopg2==2.8.6
 psycopg2-binary==2.8.6
 py==1.10.0
 pycparser==2.20

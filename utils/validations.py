@@ -39,6 +39,8 @@ def validate_json_request(request):
 
 
 def validate_schema(request, schema_instance):
+    """ A decorator function that validates schema againt request payload """
+
     def decorator(func):
         @wraps(func)
         def wrapper_function(*args, **kwargs):

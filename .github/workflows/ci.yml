@@ -41,6 +41,7 @@ jobs:
       FLASK_ENV: test
       FLASK_APP: manage.py
       TEST_DATABASE_URL: postgresql://postgres:postgres@0.0.0.0/feather_db_test
+      REDIS_URL: redis://0.0.0.0:6379/0
 
     steps:
       #Checkout Code
@@ -58,4 +59,5 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
+          mypy admin questionnaire user *.py
           pytest -vs

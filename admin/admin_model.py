@@ -5,7 +5,7 @@ from utils.model_utils import UtilityMixin, PlansView
 from sqlalchemy import func
 
 
-class Plans(UtilityMixin, db.Model):
+class Plans(UtilityMixin, db.Model): # type: ignore
     """ Plans model for storing various insurance plans """
 
     id = db.Column(
