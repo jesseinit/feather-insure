@@ -1,28 +1,27 @@
-from dotenv import load_dotenv
 from flask import Flask, jsonify
 from flask_admin import Admin
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
 from flask_marshmallow import Marshmallow
-from flask_sqlalchemy import SQLAlchemy
 from flask_redis import FlaskRedis
-from mockredis import MockRedis
+from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
+from dotenv import load_dotenv
 
-
+load_dotenv()
 from config import config
 from utils.validations import ValidationError
 
-load_dotenv()
 
-convention = {
+DB_NAMING_CONVENTION = {
     "ix": "ix_%(column_0_label)s",
     "uq": "uq_%(table_name)s_%(column_0_name)s",
     "ck": "ck_%(table_name)s_%(constraint_name)s",
     "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
     "pk": "pk_%(table_name)s",
 }
-metadata = MetaData(naming_convention=convention)
+
+metadata = MetaData(naming_convention=DB_NAMING_CONVENTION)
 db = SQLAlchemy(metadata=metadata)
 ma = Marshmallow()
 flask_bcrypt = Bcrypt()
@@ -60,5 +59,26 @@ def create_app(config_name):
     @app.errorhandler(500)
     def internal_server_error(error):
         return {"message": "Internal Server Error", "status": "error"}, 500
+
+    @jwt.invalid_token_loader
+    def invalid_token_loader(expired_token):
+        return {
+            "status": "error",
+            "message": "Your session is invalid. Kindly login again",
+        }, 401
+
+    @jwt.unauthorized_loader
+    def no_auth_header_handler(error):
+        return {
+            "status": "error",
+            "message": "Authentication type should be a bearer type.",
+        }, 401
+
+    @jwt.expired_token_loader
+    def my_expired_token_handler(error):
+        return {
+            "status": "error",
+            "message": "Your session has expired. Kindly login again.",
+        }, 401
 
     return app

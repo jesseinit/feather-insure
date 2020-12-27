@@ -131,7 +131,7 @@ def submit_questionnaire():
 def retrieve_recommendations():
     my_recommendations = redis_client.get(
         f"recommendation:{get_jwt_identity().get('id')}",
-    ).decode("utf8")
+    )
 
     if not my_recommendations:
         return {
@@ -141,6 +141,6 @@ def retrieve_recommendations():
 
     return {
         "message": "Here is your recommendation",
-        "data": json.loads(my_recommendations),
+        "data": json.loads(my_recommendations.decode("utf8")),
         "status": "success",
     }, 200
