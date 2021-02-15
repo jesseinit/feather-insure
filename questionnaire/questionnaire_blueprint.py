@@ -26,7 +26,6 @@ questionnaire_blueprint = Blueprint(
 @validate_json_request(request)
 @validate_schema(request, QuestionnaireSchema())
 def submit_questionnaire():
-    print(get_jwt_identity())
     """ This route handles questionnaire submission  """
     # Run a computation of which insurance plan should be suitable based on their occupation and children count
     data = QuestionnaireSchema().dump(request.get_json())

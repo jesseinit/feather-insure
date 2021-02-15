@@ -17,7 +17,6 @@ def register_user():
     """ This route handles all user creation and registration  """
     register_schema = RegisterSchema()
     user_info = register_schema.dump(request.get_json())
-    print(user_info)
     existing_user_instance = UserModel.query.filter_by(email=user_info["email"]).first()
 
     if existing_user_instance:
